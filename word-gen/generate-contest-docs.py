@@ -322,6 +322,37 @@ def parse_heading_style(text):
     return None, None
 
 
+def parse_image_markdown(text, md_dir):
+    """解析 Markdown 图片语法 ![alt](path)，返回 (display_text, image_path) 或 None"""
+    m = re.match(r'!\[([^\]]*)\]\(([^)]+)\)', text)
+    if not m:
+        return None
+    alt_text = m.group(1)
+    image_path = m.group(2)
+
+    # 相对路径转为绝对路径
+    if not os.path.isabs(image_path):
+        image_path = os.path.join(md_dir, image_path)
+    image_path = os.path.normpath(image_path)
+
+    return (alt_text, image_path)
+
+
+def is_form_checkbox(text):
+    """检查是否是表单复选框格式 [ ] 或 [x] 或 [X]"""
+    return re.match(r'^[\-\*]\s*\[([ xX])\]\s*', text)
+
+
+def format_checkbox_text(text):
+    """将表单复选框转换为普通文本：☐ 未选中，☑ 已选中"""
+    m = re.match(r'^[\-\*]\s*\[([ xX])\]\s*(.+)', text)
+    if m:
+        checked = m.group(1).upper() == 'X'
+        symbol = '☑' if checked else '☐'
+        return f"{symbol} {m.group(2).strip()}"
+    return text
+
+
 def add_para_with_mixed_format(doc, text, indent=True, bold_default=False):
     """通用混合格式段落"""
     para = doc.add_paragraph()
@@ -414,9 +445,15 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
     n = len(lines)
     i = 0
     table_rows = []
-    pending_table_title = None  # 暂存表格标题（来自前一行如"**表1：xxx**"）
+    in_code_block = False
+    code_block_lines = []
+    pending_table_title = None
+    in_table = False
+    first_para = True  # 暂存表格标题（来自前一行如"**表1：xxx**"）
     table_header_line = -1  # 记录表格首行行号，用于提取前一行作为标题
 
+    in_code_block = False
+    code_block_lines = []
     while i < n:
         line = lines[i]
 
@@ -432,6 +469,7 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
                 in_code_block = True
                 code_block_lines = []
             else:
+                code_block_lines = code_block_lines if "code_block_lines" in dir() else []
                 for cbl in code_block_lines:
                     add_code_paragraph(doc, cbl)
                 add_empty_paragraph(doc)
@@ -558,6 +596,8 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
             add_heading_paragraph(doc, text, FONT_HEAD4, bold=False, indent=True)
         elif stripped.startswith('- ') or stripped.startswith('* '):
             text = stripped[2:]
+            # 处理表单复选框 [ ] / [x]
+            text = format_checkbox_text(stripped)
             add_para_with_mixed_format(doc, text, indent=True)
         elif is_signature_line(stripped):
             # 签名右对齐
@@ -572,7 +612,14 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
             pPr.append(ind)
             set_paragraph_spacing(para, LINE_BODY, before=SPACE_NONE, after=SPACE_NONE)
         else:
-            add_para_with_mixed_format(doc, stripped, indent=True)
+            # 检查是否是图片 markdown
+            img = parse_image_markdown(stripped, os.path.dirname(os.path.abspath(md_path)))
+            if img:
+                alt_text, img_path = img
+                add_image_paragraph(doc, img_path, alt_text if alt_text else None)
+                add_empty_paragraph(doc)
+            else:
+                add_para_with_mixed_format(doc, stripped, indent=True)
 
         i += 1
 
