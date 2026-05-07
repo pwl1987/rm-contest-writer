@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>申报材料导出预览</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header .title { font-size: 1.1rem; font-weight: 600; }
+  .content {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+  }
+  .export-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .export-card {
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .export-card:hover {
+    border-color: #2d5a87;
+    box-shadow: 0 4px 15px rgba(45,90,135,0.15);
+  }
+  .export-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    border-radius: 12px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  .export-name { font-size: 1rem; font-weight: 600; color: #1a365d; margin-bottom: 0.5rem; }
+  .export-desc { font-size: 0.8rem; color: #666; margin-bottom: 1rem; }
+  .export-btn {
+    display: inline-block;
+    background: #1a365d;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .export-btn:hover { background: #2d5a87; }
+
+  /* Progress */
+  .progress-section {
+    background: #f8f9fa;
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .progress-title { font-size: 0.9rem; font-weight: 600; color: #1a365d; margin-bottom: 1rem; }
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .progress-item .p-label { font-size: 0.8rem; color: #555; min-width: 120px; }
+  .progress-bar { flex: 1; height: 8px; background: #e0e8f0; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #1a365d, #2d5a87); border-radius: 4px; transition: width 0.3s; }
+  .progress-pct { font-size: 0.8rem; color: #2d5a87; font-weight: 600; min-width: 40px; text-align: right; }
+
+  /* Font Preview */
+  .font-section {
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .font-title { font-size: 0.9rem; font-weight: 600; color: #1a365d; margin-bottom: 1rem; }
+  .font-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e8e6dc; }
+  .font-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .font-name { font-size: 0.75rem; color: #888; min-width: 100px; }
+  .font-sample { font-size: 1.1rem; color: #1a365d; }
+  .font-sample.fang-song { font-family: "仿宋_GB2312", "方正仿宋简体", "FangSong", serif; }
+  .font-sample.fang-xiao { font-family: "方正小标宋简体", "FZ XiaoBiaoSong-B05", serif; }
+  .font-sample.fang-kai { font-family: "方正楷体_GBK", "FZKai-Z03", serif; }
+  .font-sample.hei { font-family: "黑体", "SimHei", sans-serif; }
+  .font-sample.song { font-family: "宋体", "SimSun", serif; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🏆 融媒技术创新大赛 · 申报材料导出</div>
+  </div>
+  <div class="content">
+    <div class="export-cards">
+      <div class="export-card">
+        <div class="export-icon">📄</div>
+        <div class="export-name">Word 文档</div>
+        <div class="export-desc">.docx 格式，支持 Word 2007+ 编辑<br>嵌入字体，格式不失真</div>
+        <a class="export-btn" href="#">导出 Word</a>
+      </div>
+      <div class="export-card">
+        <div class="export-icon">📕</div>
+        <div class="export-name">PDF 文档</div>
+        <div class="export-desc">.pdf 格式，版式固定<br>适合打印和存档</div>
+        <a class="export-btn" href="#">导出 PDF</a>
+      </div>
+      <div class="export-card">
+        <div class="export-icon">📝</div>
+        <div class="export-name">Markdown 稿</div>
+        <div class="export-desc">.md 格式，纯文本<br>适合进一步编辑</div>
+        <a class="export-btn" href="#">导出 Markdown</a>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-title">📊 导出准备进度</div>
+      <div class="progress-item">
+        <div class="p-label">申报书正文</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+        <div class="progress-pct">100%</div>
+      </div>
+      <div class="progress-item">
+        <div class="p-label">Mockup 截图</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+        <div class="progress-pct">60%</div>
+      </div>
+      <div class="progress-item">
+        <div class="p-label">评分卡（不嵌入）</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+        <div class="progress-pct">100%</div>
+      </div>
+      <div class="progress-item">
+        <div class="p-label">字体嵌入</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+        <div class="progress-pct">80%</div>
+      </div>
+    </div>
+
+    <div class="font-section">
+      <div class="font-title">🔤 申报书指定字体预览（fonts/）</div>
+      <div class="font-row">
+        <div class="font-name">方正小标宋简体</div>
+        <div class="font-sample fang-xiao">融媒技术创新大赛申报材料</div>
+      </div>
+      <div class="font-row">
+        <div class="font-name">仿宋_GB2312</div>
+        <div class="font-sample fang-song">根据 GB/T 9704-2012 公文格式标准</div>
+      </div>
+      <div class="font-row">
+        <div class="font-name">方正仿宋简体</div>
+        <div class="font-sample fang-song">正文内容，段落首行缩进两字符</div>
+      </div>
+      <div class="font-row">
+        <div class="font-name">方正楷体_GBK</div>
+        <div class="font-sample fang-kai">主送机关、抄送机关等格式</div>
+      </div>
+      <div class="font-row">
+        <div class="font-name">黑体</div>
+        <div class="font-sample hei">标题一、标题二、关键词加粗</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

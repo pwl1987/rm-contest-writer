@@ -1,0 +1,28 @@
+{
+  "id": "yimeng-mind-20260507",
+  "name": "大模型训练数据系统",
+  "track": "技术研发类",
+  "ai_mode": "私有化部署",
+  "model_choice": "MiniMind-3B",
+  "side": "日报侧",
+  "core_functions": [
+    "数据采集",
+    "数据清洗",
+    "模型训练",
+    "LoRA微调",
+    "评估测试"
+  ],
+  "pain_points": [
+    "训练数据准备耗时长",
+    "数据孤岛",
+    "模型训练迭代慢"
+  ],
+  "duration": "部分上线",
+  "budget": "10万以下",
+  "mockup_templates": [
+    "dashboard",
+    "trending",
+    "discovery"
+  ],
+  "created": "2026-05-07"
+}

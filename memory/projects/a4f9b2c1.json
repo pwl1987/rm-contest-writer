@@ -1,0 +1,25 @@
+{
+  "project_id": "a4f9b2c1",
+  "name": "新媒体内容审核流程优化系统",
+  "track": "应用创新类",
+  "side": "广电侧",
+  "core_pain_points": [
+    "应急响应慢",
+    "功能割裂"
+  ],
+  "ai_mode": null,
+  "model": null,
+  "core_functions": [
+    "审核流程管理",
+    "多系统协同",
+    "应急响应优化",
+    "统一工作台"
+  ],
+  "mockup_templates": [
+    "audit-workbench",
+    "architecture-app-innov"
+  ],
+  "implementation_cycle": "3个月",
+  "budget_range": null,
+  "created_at": "2026-05-06"
+}

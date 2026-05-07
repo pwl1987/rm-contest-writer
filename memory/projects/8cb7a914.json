@@ -1,0 +1,32 @@
+{
+  "project_id": "8cb7a914",
+  "created_at": "2026-05-06T07:05:07.094237",
+  "updated_at": "2026-05-06T07:05:07.094852",
+  "current_track": null,
+  "metadata": {
+    "project_name": "电视播出监控系统",
+    "side": "广电侧",
+    "ai_mode": null,
+    "model_choice": null,
+    "current_track": "技术研发类",
+    "track": "技术研发类"
+  },
+  "fields": {
+    "track": {
+      "value": "技术研发类",
+      "source": "user_selected"
+    },
+    "side": {
+      "value": "广电侧",
+      "source": "user_selected"
+    }
+  },
+  "change_log": [
+    {
+      "field": "track",
+      "old": null,
+      "new": "技术研发类",
+      "cascade_from": null
+    }
+  ]
+}

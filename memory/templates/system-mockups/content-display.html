@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品展示 - 数据新闻作品</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header .logo { font-size: 1.1rem; font-weight: 700; }
+  .main { padding: 1.5rem; }
+  .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .card-title { font-size: 0.95rem; font-weight: 600; color: #333; }
+  .card-body { padding: 1.25rem; }
+  .work-preview {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.3);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .work-title { font-size: 1.2rem; font-weight: 600; color: #333; margin-bottom: 0.5rem; }
+  .work-meta { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+  .work-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .work-tag {
+    padding: 0.3rem 0.75rem;
+    background: #f0f4f8;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #333;
+  }
+  .work-desc {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .platform-list { display: flex; gap: 0.75rem; }
+  .platform-item {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .platform-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .platform-name { font-size: 0.8rem; color: #333; font-weight: 500; }
+  .platform-stat { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
+  .award-section { margin-top: 1rem; }
+  .award-title { font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.75rem; }
+  .award-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #fef9c3 0%, #fefce8 100%);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  .award-icon { font-size: 1.2rem; }
+  .award-info { flex: 1; }
+  .award-name { font-size: 0.85rem; font-weight: 500; color: #333; }
+  .award-org { font-size: 0.75rem; color: #888; }
+  .action-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .action-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: center;
+  }
+  .action-btn.primary { background: linear-gradient(135deg, #1a365d, #2d5a87); color: #fff; }
+  .action-btn.secondary { background: #f0f4f8; color: #333; }
+  .comment-list { list-style: none; }
+  .comment-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f8f8f8;
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-user { font-size: 0.85rem; font-weight: 500; color: #333; }
+  .comment-text { font-size: 0.85rem; color: #666; margin-top: 0.25rem; }
+  .comment-time { font-size: 0.75rem; color: #999; margin-top: 0.25rem; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🏆 融媒技术创新大赛 · 作品展示</div>
+  </div>
+  <div class="main">
+    <div class="content-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📺 作品预览</div>
+        </div>
+        <div class="card-body">
+          <div class="work-preview">视频播放区域</div>
+          <div class="work-title">《临沂文旅复苏：数据见证转型之路》数据新闻专题</div>
+          <div class="work-meta">制作者：临沂市融媒体中心 · 发布日期：2026年5月1日</div>
+          <div class="work-tags">
+            <span class="work-tag">数据新闻</span>
+            <span class="work-tag">可视化</span>
+            <span class="work-tag">文旅</span>
+            <span class="work-tag">短视频</span>
+          </div>
+          <div class="work-desc">
+            本作品通过整合2023-2026年临沂市文旅数据，以可视化图表+短视频的形式呈现文旅产业复苏态势。作品深度分析了游客来源、消费结构、热门景区等维度数据，全网累计阅读量超过1280万。
+          </div>
+          <div class="platform-list">
+            <div class="platform-item">
+              <div class="platform-icon">📺</div>
+              <div class="platform-name">抖音</div>
+              <div class="platform-stat">观看 520万</div>
+            </div>
+            <div class="platform-item">
+              <div class="platform-icon">💬</div>
+              <div class="platform-name">微博</div>
+              <div class="platform-stat">阅读 856万</div>
+            </div>
+            <div class="platform-item">
+              <div class="platform-icon">📱</div>
+              <div class="platform-name">微信</div>
+              <div class="platform-stat">阅读 100万+</div>
+            </div>
+            <div class="platform-item">
+              <div class="platform-icon">🌐</div>
+              <div class="platform-name">网站</div>
+              <div class="platform-stat">点击 45万</div>
+            </div>
+          </div>
+          <div class="award-section">
+            <div class="award-title">🏆 获奖情况</div>
+            <div class="award-item">
+              <div class="award-icon">🥇</div>
+              <div class="award-info">
+                <div class="award-name">山东省文旅好作品评选 一等奖</div>
+                <div class="award-org">山东省文化和旅游厅 · 2026年4月</div>
+              </div>
+            </div>
+          </div>
+          <div class="action-row">
+            <button class="action-btn secondary">← 返回列表</button>
+            <button class="action-btn primary">查看完整作品 →</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">💬 热门评论</div>
+        </div>
+        <div class="card-body">
+          <ul class="comment-list">
+            <li class="comment-item">
+              <div class="comment-user">用户 星辰大海</div>
+              <div class="comment-text">数据分析太到位了！第一次这么直观地看到临沂的变化</div>
+              <div class="comment-time">5小时前 · 点赞 234</div>
+            </li>
+            <li class="comment-item">
+              <div class="comment-user">用户 旅行爱好者</div>
+              <div class="comment-text">看完直接订了端午去临沂的机票，必须实地打卡！</div>
+              <div class="comment-time">7小时前 · 点赞 189</div>
+            </li>
+            <li class="comment-item">
+              <div class="comment-user">用户 数据分析师小王</div>
+              <div class="comment-text">这数据可视化水平太高了，学习了！</div>
+              <div class="comment-time">1天前 · 点赞 156</div>
+            </li>
+            <li class="comment-item">
+              <div class="comment-user">用户 媒体人老李</div>
+              <div class="comment-text">临沂台这几年转型做得真不错，值得借鉴</div>
+              <div class="comment-time">2天前 · 点赞 98</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

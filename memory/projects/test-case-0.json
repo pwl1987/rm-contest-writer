@@ -1,0 +1,18 @@
+{
+  "project_id": "test-case-0",
+  "name": "广电智能监播系统",
+  "track": "技术研发类",
+  "ai_mode": "私有化部署",
+  "model_choice": "Qwen3.5-VL-72B",
+  "side": "广电侧",
+  "core_functions": ["信号监测", "故障报警", "自动切换", "延时联动"],
+  "pain_points": ["信号中断难以及时发现", "故障报警不及时", "人工切换响应慢"],
+  "mockup_templates": ["dashboard", "trending", "preview", "signal-monitor"],
+  "key_tech_options": ["模型裁剪", "TensorRT加速", "多帧时序判决"],
+  "comparison_table_dims": ["准确率", "召回率", "误报率", "响应时延", "并发量"],
+  "resource_needs": {
+    "gpu": "A100",
+    "gpu_count": 1,
+    "gpu_memory": "80GB"
+  }
+}

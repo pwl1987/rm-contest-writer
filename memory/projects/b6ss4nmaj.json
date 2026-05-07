@@ -1,0 +1,32 @@
+{
+  "project_id": "b6ss4nmaj",
+  "name": "广电智能监播系统",
+  "description": "检测电视直播信号，出现问题进行报警切换，联动延时系统",
+  "track": "技术研发类",
+  "track_confidence": 85,
+  "side": "广电侧",
+  "side_confidence": 90,
+  "ai_mode": null,
+  "ai_mode_confidence": 0,
+  "model_choice": null,
+  "core_functions": [
+    "信号监测",
+    "故障报警",
+    "自动切换",
+    "延时联动"
+  ],
+  "pain_points": [
+    "监播效率低",
+    "故障发现滞后",
+    "切换人工依赖",
+    "延时系统联动缺失"
+  ],
+  "mockup_templates": [
+    "dashboard.html",
+    "trending.html",
+    "preview.html",
+    "signal-monitor.html"
+  ],
+  "architecture_template": "architecture-tech-rnd.html",
+  "created_at": "2026-05-06T07:45:06.496Z"
+}

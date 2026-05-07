@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能选题推荐系统 - 工作台</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-left { display: flex; align-items: center; gap: 1rem; }
+  .header .logo { font-size: 1.1rem; font-weight: 700; }
+  .header .nav { display: flex; gap: 1.5rem; font-size: 0.9rem; }
+  .header .nav-item { opacity: 0.7; cursor: pointer; }
+  .header .nav-item.active { opacity: 1; font-weight: 600; }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+  .header .user-info { font-size: 0.85rem; }
+  .main { padding: 1.5rem; }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .stat-card .label { font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
+  .stat-card .value { font-size: 1.8rem; font-weight: 700; color: #1a365d; }
+  .stat-card .trend { font-size: 0.75rem; color: #22c55e; margin-top: 0.3rem; }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-title { font-size: 1rem; font-weight: 600; color: #333; }
+  .card-action { font-size: 0.8rem; color: #2d5a87; cursor: pointer; }
+  .card-body { padding: 1.25rem; }
+  .topic-list { list-style: none; }
+  .topic-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f8f8f8;
+  }
+  .topic-item:last-child { border-bottom: none; }
+  .topic-rank {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #1a365d, #2d5a87);
+    color: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 0.75rem;
+  }
+  .topic-rank.hot { background: linear-gradient(135deg, #dc2626, #ef4444); }
+  .topic-content { flex: 1; }
+  .topic-title { font-size: 0.9rem; color: #333; font-weight: 500; margin-bottom: 0.2rem; }
+  .topic-meta { font-size: 0.75rem; color: #999; }
+  .topic-score {
+    font-size: 0.85rem;
+    color: #2d5a87;
+    font-weight: 600;
+    background: #f0f4f8;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+  }
+  .recommend-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4a84b, #e8c068);
+    color: #1a365d;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+  }
+  .quick-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .action-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: center;
+  }
+  .action-btn.primary { background: linear-gradient(135deg, #1a365d, #2d5a87); color: #fff; }
+  .action-btn.secondary { background: #f0f4f8; color: #333; }
+  .action-btn.accent { background: linear-gradient(135deg, #d4a84b, #e8c068); color: #1a365d; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">🏆 融媒技术创新大赛</div>
+      <div class="nav">
+        <div class="nav-item active">工作台</div>
+        <div class="nav-item">选题发现</div>
+        <div class="nav-item">智能推荐</div>
+        <div class="nav-item">热点追踪</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">管理员 · 日报侧</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">今日新增选题</div>
+        <div class="value">128</div>
+        <div class="trend">↑ 12% 较昨日</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">待审核选题</div>
+        <div class="value">23</div>
+        <div class="trend">↓ 5% 较昨日</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">推荐采纳率</div>
+        <div class="value">89%</div>
+        <div class="trend">↑ 3% 较昨日</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">平均响应时间</div>
+        <div class="value">45ms</div>
+        <div class="trend">P99 · 实时</div>
+      </div>
+    </div>
+    <div class="content-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🔥 热门选题推荐</div>
+          <div class="card-action">查看全部 →</div>
+        </div>
+        <div class="card-body">
+          <ul class="topic-list">
+            <li class="topic-item">
+              <div class="topic-rank hot">1</div>
+              <div class="topic-content">
+                <div class="topic-title">临沂市一季度GDP增长8.2%，位居全省前列<span class="recommend-tag">AI推荐</span></div>
+                <div class="topic-meta">经济 · 热度 98 · 预计阅读 10w+</div>
+              </div>
+              <div class="topic-score">98</div>
+            </li>
+            <li class="topic-item">
+              <div class="topic-rank hot">2</div>
+              <div class="topic-content">
+                <div class="topic-title">沂河畔新开最美图书馆，五一假期游客爆满</div>
+                <div class="topic-meta">文旅 · 热度 95 · 预计阅读 8w+</div>
+              </div>
+              <div class="topic-score">95</div>
+            </li>
+            <li class="topic-item">
+              <div class="topic-rank">3</div>
+              <div class="topic-content">
+                <div class="topic-title">临沂奥体中心主体完工，预计年底投入使用</div>
+                <div class="topic-meta">城建 · 热度 88 · 预计阅读 6w+</div>
+              </div>
+              <div class="topic-score">88</div>
+            </li>
+            <li class="topic-item">
+              <div class="topic-rank">4</div>
+              <div class="topic-content">
+                <div class="topic-title">临沂开通首条BRT快速公交线路</div>
+                <div class="topic-meta">交通 · 热度 85 · 预计阅读 5w+</div>
+              </div>
+              <div class="topic-score">85</div>
+            </li>
+            <li class="topic-item">
+              <div class="topic-rank">5</div>
+              <div class="topic-content">
+                <div class="topic-title">蒙山景区入选国家5A级旅游景区</div>
+                <div class="topic-meta">文旅 · 热度 82 · 预计阅读 4.5w+</div>
+              </div>
+              <div class="topic-score">82</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">⚡ 快速操作</div>
+        </div>
+        <div class="card-body">
+          <div class="quick-actions">
+            <button class="action-btn primary">新建选题</button>
+            <button class="action-btn secondary">批量导入</button>
+          </div>
+          <div class="quick-actions">
+            <button class="action-btn accent">智能生成</button>
+            <button class="action-btn secondary">模板应用</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

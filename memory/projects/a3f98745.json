@@ -1,0 +1,81 @@
+{
+  "project_id": "a3f98745",
+  "created_at": "2026-05-06T07:08:51.673846",
+  "updated_at": "2026-05-06T07:08:51.675934",
+  "current_track": "应用创新类",
+  "metadata": {
+    "project_name": "电视播出监控系统",
+    "side": "广电侧",
+    "ai_mode": "私有化部署",
+    "model_choice": "Qwen3.5-VL-72B",
+    "current_track": "应用创新类",
+    "track": "应用创新类",
+    "pain_points": [
+      "系统封闭",
+      "智能化缺失",
+      "应急响应慢"
+    ],
+    "key_tech": [
+      "流程优化设计：AI实时技审+信号切换联动自动化重构现有播出监控流程",
+      "技术选型：采用私有化部署模式，视频帧分析+规则引擎组合",
+      "数据处理：播出信号数据清洗、异常模式识别、质量管理"
+    ]
+  },
+  "fields": {
+    "track": {
+      "value": "应用创新类",
+      "source": "user_selected"
+    },
+    "side": {
+      "value": "广电侧",
+      "source": "user_selected"
+    },
+    "ai_mode": {
+      "value": "私有化部署",
+      "source": "user_selected"
+    },
+    "model_choice": {
+      "value": "Qwen3.5-VL-72B",
+      "source": "recommended"
+    },
+    "pain_points": {
+      "value": [
+        "系统封闭",
+        "智能化缺失",
+        "应急响应慢"
+      ],
+      "source": "recommended"
+    },
+    "key_tech": {
+      "value": [
+        "流程优化设计：AI实时技审+信号切换联动自动化重构现有播出监控流程",
+        "技术选型：采用私有化部署模式，视频帧分析+规则引擎组合",
+        "数据处理：播出信号数据清洗、异常模式识别、质量管理"
+      ],
+      "source": "cascade"
+    }
+  },
+  "change_log": [
+    {
+      "field": "track",
+      "old": "技术研发类",
+      "new": "应用创新类",
+      "cascade_from": null
+    },
+    {
+      "field": "key_tech",
+      "old": [
+        "大模型选型：Qwen3.5-VL-72B，原生支持视频帧分析",
+        "推理引擎：vLLM 0.6，paged attention优化显存，张量并行",
+        "算法优化：INT4量化+Prompt优化设计",
+        "AIGC/Agent突破：AI实时技审+信号切换联动自动化"
+      ],
+      "new": [
+        "流程优化设计：AI实时技审+信号切换联动自动化重构现有播出监控流程",
+        "技术选型：采用私有化部署模式，视频帧分析+规则引擎组合",
+        "数据处理：播出信号数据清洗、异常模式识别、质量管理"
+      ],
+      "cascade_from": "track"
+    }
+  ]
+}

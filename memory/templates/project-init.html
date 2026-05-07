@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>融媒技术创新大赛申报系统</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 50%, #1a365d 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 2rem 2.5rem;
+    text-align: center;
+  }
+  .header .badge {
+    display: inline-block;
+    background: #d4a84b;
+    color: #1a365d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .header .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  .header .org {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+  .body {
+    padding: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 2rem;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  .form-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e8e6dc;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    resize: vertical;
+    min-height: 120px;
+  }
+  .form-input:focus {
+    outline: none;
+    border-color: #2d5a87;
+    box-shadow: 0 0 0 4px rgba(45,90,135,0.1);
+  }
+  .form-input::placeholder {
+    color: #aaa;
+  }
+  .btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26,54,93,0.4);
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    color: #999;
+    font-size: 0.85rem;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e8e6dc;
+  }
+  .divider span {
+    padding: 0 1rem;
+  }
+  .history {
+    margin-top: 1.5rem;
+  }
+  .history-title {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  .history-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border: 1px solid #e8e6dc;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .history-item:hover {
+    border-color: #2d5a87;
+    background: #f8f9fa;
+  }
+  .history-item .icon {
+    width: 32px;
+    height: 32px;
+    background: #f0f4f8;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-size: 1rem;
+  }
+  .history-item .name {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+  }
+  .history-item .date {
+    font-size: 0.8rem;
+    color: #999;
+  }
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    font-size: 0.8rem;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">🏆 首届融媒技术创新大赛</div>
+    <h1>临沂市融媒体中心</h1>
+    <div class="subtitle">融媒技术创新大赛申报系统</div>
+    <div class="org">技术赋能 · 创新驱动 · 融合发展</div>
+  </div>
+  <div class="body">
+    <div class="form-group">
+      <label class="form-label">请输入作品名称或项目需求描述</label>
+      <textarea class="form-input" placeholder="例如：智能选题推荐系统，基于多模态大模型实现融媒体内容智能选题，提升编辑选题效率300%..."></textarea>
+    </div>
+    <button class="btn-primary">开始创建申报材料</button>
+    <div class="divider"><span>或选择已有项目</span></div>
+    <div class="history">
+      <div class="history-title">最近项目</div>
+      <div class="history-item">
+        <div class="icon">📁</div>
+        <div class="name">智能选题推荐系统</div>
+        <div class="date">2026/5/5</div>
+      </div>
+      <div class="history-item">
+        <div class="icon">📁</div>
+        <div class="name">新媒体内容审核流程优化</div>
+        <div class="date">2026/5/4</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    临沂市融媒体中心 · 首届融媒技术创新大赛
+  </div>
+</div>
+</body>
+</html>

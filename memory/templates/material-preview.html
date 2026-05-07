@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容创意类物料预览</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+  }
+  .header .title { font-size: 1.1rem; font-weight: 600; }
+  .header .track { font-size: 0.8rem; background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 20px; }
+  .content {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+  }
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a365d;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e8e6dc;
+  }
+
+  /* Video Preview */
+  .video-preview {
+    background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .video-player {
+    background: #000;
+    border-radius: 8px;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .video-player::before {
+    content: "▶";
+    font-size: 3rem;
+    color: rgba(255,255,255,0.8);
+  }
+  .video-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .video-tag {
+    background: #ec4899;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+  }
+
+  /* H5 Preview */
+  .h5-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .h5-card {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+    border-radius: 10px;
+    padding: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .h5-card:hover { transform: translateY(-2px); }
+  .h5-card .h5-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .h5-card .h5-desc { font-size: 0.75rem; opacity: 0.85; }
+  .h5-card .h5-url { font-size: 0.65rem; opacity: 0.7; margin-top: 0.5rem; background: rgba(255,255,255,0.2); padding: 0.2rem 0.4rem; border-radius: 4px; display: inline-block; }
+  .h5-card .h5-qr { width: 60px; height: 60px; background: #fff; border-radius: 4px; margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; color: #7c3aed; font-size: 0.6rem; }
+
+  /* Poster / Data News Grid */
+  .poster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .poster-card {
+    background: #f8f9fa;
+    border: 1px solid #e8e6dc;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .poster-thumb {
+    background: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2rem;
+  }
+  .poster-info { padding: 0.75rem; }
+  .poster-title { font-size: 0.8rem; font-weight: 600; color: #1a365d; margin-bottom: 0.3rem; }
+  .poster-stats { font-size: 0.7rem; color: #888; }
+
+  /* Material List */
+  .material-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  .material-table th {
+    background: #1a365d;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+  .material-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #e8e6dc;
+    font-size: 0.8rem;
+  }
+  .material-table tr:hover { background: #f5f6fa; }
+  .status-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .status-ready { background: #dcfce7; color: #166534; }
+  .status-pending { background: #fef9c3; color: #854d0e; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🏆 融媒技术创新大赛</div>
+    <div class="track">📌 内容创意类</div>
+  </div>
+  <div class="content">
+    <div class="section-title">🎬 视频物料预览</div>
+    <div class="video-preview">
+      <div class="video-player"></div>
+      <div style="margin-bottom: 0.5rem;">
+        <span class="video-tag">专题片</span>
+        <span style="font-size: 0.85rem; font-weight: 600; color: #1a365d; margin-left: 0.5rem;">数据驱动的内容生产全流程纪录片</span>
+      </div>
+      <div class="video-meta">
+        <span>⏱ 3分42秒</span>
+        <span>📐 1920×1080</span>
+        <span>🎞 MP4 / H.264</span>
+        <span>📦 约 180MB</span>
+      </div>
+    </div>
+
+    <div class="section-title">📱 H5 交互物料</div>
+    <div class="h5-grid">
+      <div class="h5-card">
+        <div class="h5-title">融媒数据大屏 · 交互H5</div>
+        <div class="h5-desc">点击查看临沂市各区县融媒传播数据，支持筛选和时间轴回放</div>
+        <div class="h5-url">/h5/data-screen-2025</div>
+        <div class="h5-qr">扫码预览</div>
+      </div>
+      <div class="h5-card" style="background: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);">
+        <div class="h5-title">两会融媒报道 · 专题H5</div>
+        <div class="h5-desc">沉浸式长卷滚动报道，含视频、图文、数据可视化</div>
+        <div class="h5-url">/h5/liangyi-2025</div>
+        <div class="h5-qr">扫码预览</div>
+      </div>
+      <div class="h5-card" style="background: linear-gradient(135deg, #d4a84b 0%, #e8c068 100%); color: #1a365d;">
+        <div class="h5-title">建党百年 · 党史互动问答</div>
+        <div class="h5-desc">互动小游戏，答题解锁勋章，支持朋友圈分享</div>
+        <div class="h5-url">/h5/party-history</div>
+        <div class="h5-qr">扫码预览</div>
+      </div>
+    </div>
+
+    <div class="section-title">🖼 海报 / 数据新闻卡片</div>
+    <div class="poster-grid">
+      <div class="poster-card">
+        <div class="poster-thumb">📊</div>
+        <div class="poster-info">
+          <div class="poster-title">2025 Q1 融媒传播报告</div>
+          <div class="poster-stats">阅读 12.8万 · 分享 3200</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <div class="poster-thumb" style="background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);">🎬</div>
+        <div class="poster-info">
+          <div class="poster-title">短视频爆款公式图解</div>
+          <div class="poster-stats">阅读 8.3万 · 分享 5100</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <div class="poster-thumb" style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);">📰</div>
+        <div class="poster-info">
+          <div class="poster-title">融媒内容审核流程图</div>
+          <div class="poster-stats">阅读 5.6万 · 分享 890</div>
+        </div>
+      </div>
+      <div class="poster-card">
+        <div class="poster-thumb" style="background: linear-gradient(135deg, #d4a84b 0%, #e8c068 100%); color: #1a365d;">🏆</div>
+        <div class="poster-info">
+          <div class="poster-title">大赛报名海报</div>
+          <div class="poster-stats">传播 2.1万 · 扫码参与 430</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">📋 物料清单</div>
+    <table class="material-table">
+      <thead>
+        <tr>
+          <th>物料名称</th>
+          <th>类型</th>
+          <th>状态</th>
+          <th>尺寸规格</th>
+          <th>对应申报章节</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>数据驱动内容生产专题片</td>
+          <td>MP4视频</td>
+          <td><span class="status-badge status-ready">已就绪</span></td>
+          <td>1920×1080 / 3分42秒</td>
+          <td>3.2 核心功能</td>
+        </tr>
+        <tr>
+          <td>融媒数据大屏 H5</td>
+          <td>HTML5</td>
+          <td><span class="status-badge status-ready">已就绪</span></td>
+          <td>移动端适配</td>
+          <td>3.2 / 4.1 应用效果</td>
+        </tr>
+        <tr>
+          <td>两会融媒报道 H5</td>
+          <td>HTML5</td>
+          <td><span class="status-badge status-ready">已就绪</span></td>
+          <td>移动端适配</td>
+          <td>3.2 / 4.1 应用效果</td>
+        </tr>
+        <tr>
+          <td>党史互动问答 H5</td>
+          <td>HTML5</td>
+          <td><span class="status-badge status-pending">制作中</span></td>
+          <td>移动端适配</td>
+          <td>3.2 核心功能</td>
+        </tr>
+        <tr>
+          <td>海报/数据新闻卡片 ×4</td>
+          <td>PNG/JPEG</td>
+          <td><span class="status-badge status-ready">已就绪</span></td>
+          <td>1080×1440</td>
+          <td>4.1 传播效果</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

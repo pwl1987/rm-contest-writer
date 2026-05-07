@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>应用创新类架构图 - 新媒体内容审核流程优化</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+  }
+  .header .title { font-size: 1.1rem; font-weight: 600; }
+  .header .step { font-size: 0.85rem; opacity: 0.8; }
+  .content {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+  }
+  .arch-diagram {
+    background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .arch-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a365d;
+    margin-bottom: 1.5rem;
+  }
+  .process-flow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .process-step {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0 4px 15px rgba(26,54,93,0.3);
+  }
+  .process-step.highlight {
+    background: linear-gradient(135deg, #d4a84b 0%, #e8c068 100%);
+    color: #1a365d;
+  }
+  .process-step.ai {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  }
+  .process-label { font-size: 0.7rem; opacity: 0.8; margin-bottom: 0.3rem; }
+  .process-name { font-size: 0.9rem; font-weight: 600; }
+  .arrow-right {
+    font-size: 1.2rem;
+    color: #2d5a87;
+  }
+  .system-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .system-box {
+    background: #e0e8f0;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #1a365d;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .system-box span { opacity: 0.7; }
+  .integration {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed #e8e6dc;
+    flex-wrap: wrap;
+  }
+  .integration-item {
+    text-align: center;
+  }
+  .integration-icon {
+    width: 48px;
+    height: 48px;
+    background: #f0f4f8;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 0.5rem;
+  }
+  .integration-name { font-size: 0.8rem; color: #333; }
+  .section-title { font-size: 1rem; font-weight: 600; color: #1a365d; margin-bottom: 1rem; text-align: center; }
+  .metrics-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e8e6dc;
+  }
+  .metric { text-align: center; }
+  .metric .val { font-size: 1.5rem; font-weight: 700; color: #2d5a87; }
+  .metric .key { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🏆 融媒技术创新大赛</div>
+    <div class="step">Step 2/4 · 方案设计</div>
+  </div>
+  <div class="content">
+    <div class="arch-diagram">
+      <div class="arch-title">新媒体内容审核流程优化 · 系统架构图</div>
+      <div class="process-flow">
+        <div class="process-step">
+          <div class="process-label">素材采集</div>
+          <div class="process-name">选题入库</div>
+        </div>
+        <div class="arrow-right">→</div>
+        <div class="process-step ai">
+          <div class="process-label">AI 预审</div>
+          <div class="process-name">智能过滤</div>
+        </div>
+        <div class="arrow-right">→</div>
+        <div class="process-step highlight">
+          <div class="process-label">规则引擎</div>
+          <div class="process-name">合规校验</div>
+        </div>
+        <div class="arrow-right">→</div>
+        <div class="process-step">
+          <div class="process-label">人工审核</div>
+          <div class="process-name">最终把关</div>
+        </div>
+        <div class="arrow-right">→</div>
+        <div class="process-step">
+          <div class="process-label">一键发布</div>
+          <div class="process-name">多平台分发</div>
+        </div>
+      </div>
+      <div class="system-row">
+        <div class="system-box">📝 融媒体平台 <span>→</span></div>
+        <div class="system-box">🔍 AI审核引擎 <span>→</span></div>
+        <div class="system-box">⚙️ 规则配置中心 <span>→</span></div>
+        <div class="system-box">✅ 审核工作台 <span>→</span></div>
+        <div class="system-box">📡 分发渠道</div>
+      </div>
+      <div class="integration">
+        <div class="integration-item">
+          <div class="integration-icon">📰</div>
+          <div class="integration-name">方正系统</div>
+        </div>
+        <div class="integration-item">
+          <div class="integration-icon">🎬</div>
+          <div class="integration-name">索贝系统</div>
+        </div>
+        <div class="integration-item">
+          <div class="integration-icon">📊</div>
+          <div class="integration-name">数据分析</div>
+        </div>
+        <div class="integration-item">
+          <div class="integration-icon">🔔</div>
+          <div class="integration-name">预警通知</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-row">
+      <div class="metric">
+        <div class="val">85%</div>
+        <div class="key">AI自动通过率</div>
+      </div>
+      <div class="metric">
+        <div class="val">60%</div>
+        <div class="key">效率提升</div>
+      </div>
+      <div class="metric">
+        <div class="val">↓ 40%</div>
+        <div class="key">人力成本降低</div>
+      </div>
+      <div class="metric">
+        <div class="val">99.2%</div>
+        <div class="key">审核准确率</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

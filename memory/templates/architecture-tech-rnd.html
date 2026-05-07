@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技术研发类架构图 - 智能选题推荐系统</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+  }
+  .header .title { font-size: 1.1rem; font-weight: 600; }
+  .header .step { font-size: 0.85rem; opacity: 0.8; }
+  .content {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 2rem;
+  }
+  .arch-diagram {
+    background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+    border: 2px solid #e8e6dc;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .arch-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a365d;
+    margin-bottom: 1.5rem;
+  }
+  .layer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .layer:last-child { margin-bottom: 0; }
+  .layer-box {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 140px;
+    box-shadow: 0 4px 15px rgba(26,54,93,0.3);
+  }
+  .layer-box.service {
+    background: linear-gradient(135deg, #2d5a87 0%, #4a90c2 100%);
+  }
+  .layer-box.data {
+    background: linear-gradient(135deg, #d4a84b 0%, #e8c068 100%);
+    color: #1a365d;
+  }
+  .layer-box.gpu {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  }
+  .layer-label {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-bottom: 0.3rem;
+  }
+  .layer-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .arrow-down {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2d5a87;
+    margin: 0.5rem 0;
+  }
+  .section-title { font-size: 1.1rem; font-weight: 600; color: #1a365d; margin-bottom: 1rem; text-align: center; } {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .tech-item {
+    background: #f0f4f8;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #333;
+  }
+  .modules {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .module {
+    background: #e0e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #1a365d;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e8e6dc;
+  }
+  .info-item {
+    text-align: center;
+  }
+  .info-item .val {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a365d;
+  }
+  .info-item .key {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 0.25rem;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🏆 融媒技术创新大赛</div>
+    <div class="step">Step 2/4 · 方案设计</div>
+  </div>
+  <div class="content">
+    <div class="arch-diagram">
+      <div class="arch-title">融媒体智能协作平台 · 应用架构图</div>
+      <div class="layer">
+        <div class="layer-box">
+          <div class="layer-label">表现层</div>
+          <div class="layer-name">Web 管理界面</div>
+        </div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="layer">
+        <div class="layer-box service">
+          <div class="layer-label">服务层</div>
+          <div class="layer-name">API 网关</div>
+        </div>
+        <div class="module" style="align-self: center;">→</div>
+        <div class="layer-box service">
+          <div class="layer-label">业务逻辑层</div>
+          <div class="layer-name">FastAPI 服务</div>
+        </div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="layer">
+        <div class="modules">
+          <div class="module">选题评估引擎</div>
+          <div class="module">相似度检索</div>
+          <div class="module">风控过滤</div>
+          <div class="module">传播力评估</div>
+          <div class="module">报告生成</div>
+        </div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="layer">
+        <div class="layer-box gpu">
+          <div class="layer-label">模型层</div>
+          <div class="layer-name">Qwen3.5-VL-72B</div>
+        </div>
+        <div class="layer-box gpu">
+          <div class="layer-label">推理引擎</div>
+          <div class="layer-name">vLLM</div>
+        </div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="layer">
+        <div class="layer-box data">
+          <div class="layer-label">数据层</div>
+          <div class="layer-name">Milvus 向量库</div>
+        </div>
+        <div class="layer-box data">
+          <div class="layer-label">存储层</div>
+          <div class="layer-name">PostgreSQL</div>
+        </div>
+        <div class="layer-box data">
+          <div class="layer-label">特征工程</div>
+          <div class="layer-name">Redis Cache</div>
+        </div>
+      </div>
+      <div class="tech-stack">
+        <div class="tech-item">PyTorch 2.2</div>
+        <div class="tech-item">vLLM 0.4</div>
+        <div class="tech-item">FastAPI 0.109</div>
+        <div class="tech-item">Milvus 2.3</div>
+        <div class="tech-item">Docker</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-item">
+        <div class="val">45ms</div>
+        <div class="key">响应时延 P99</div>
+      </div>
+      <div class="info-item">
+        <div class="val">89%</div>
+        <div class="key">推荐准确率</div>
+      </div>
+      <div class="info-item">
+        <div class="val">300%+</div>
+        <div class="key">效率提升</div>
+      </div>
+      <div class="info-item">
+        <div class="val">99.9%</div>
+        <div class="key">系统可用性</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

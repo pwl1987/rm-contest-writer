@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能分析确认 - 融媒大赛申报</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(90deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header .title { font-size: 1.1rem; font-weight: 600; }
+  .header .step { font-size: 0.85rem; opacity: 0.8; }
+  .progress-bar {
+    background: #2d5a87;
+    padding: 0.5rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .progress-step {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    position: relative;
+  }
+  .progress-step.active { background: #d4a84b; }
+  .progress-step.completed { background: #4ade80; }
+  .main { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .card-header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .card-header .icon { font-size: 1.5rem; }
+  .card-header h2 { font-size: 1.1rem; font-weight: 600; }
+  .card-body { padding: 1.5rem; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .info-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 4px solid #2d5a87;
+  }
+  .info-item .label {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0.3rem;
+  }
+  .info-item .value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .info-item .edit-btn {
+    background: none;
+    border: none;
+    color: #2d5a87;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .info-item .edit-btn:hover { text-decoration: underline; }
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #f0f4f8;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+  .checkbox-item:hover { background: #e0e8f0; }
+  .checkbox-item.selected {
+    background: #1a365d;
+    color: #fff;
+  }
+  .checkbox-item input { display: none; }
+  .inline-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .inline-field {
+    flex: 1;
+  }
+  .inline-field label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  .inline-field select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e8e6dc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  .btn-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .btn-primary {
+    flex: 1;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    padding: 1rem 2rem;
+    background: #fff;
+    color: #666;
+    border: 2px solid #e8e6dc;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">🏆 融媒技术创新大赛</div>
+    <div class="step">Step 1/4 · 项目分析</div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-step completed"></div>
+    <div class="progress-step active"></div>
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
+  </div>
+  <div class="main">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon">✓</div>
+        <h2>已从您的描述中识别以下信息</h2>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="label">赛道类型</div>
+            <div class="value">
+              技术研发类
+              <button class="edit-btn">✏️ 修改</button>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="label">AI部署方式</div>
+            <div class="value">
+              私有化部署
+              <button class="edit-btn">✏️ 修改</button>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="label">核心技术</div>
+            <div class="value">
+              Qwen3.5-VL-72B
+              <button class="edit-btn">✏️ 修改</button>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="label">项目归属</div>
+            <div class="value">
+              日报侧
+              <button class="edit-btn">✏️ 修改</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon">📋</div>
+        <h2>以下信息缺失，请帮助补充</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-title">核心痛点（可多选）</div>
+        <div class="checkbox-group">
+          <label class="checkbox-item selected"><input type="checkbox" checked> 效率低下</label>
+          <label class="checkbox-item"><input type="checkbox"> 审核标准不统一</label>
+          <label class="checkbox-item"><input type="checkbox"> 知识库缺失</label>
+          <label class="checkbox-item"><input type="checkbox"> 数据孤岛</label>
+          <label class="checkbox-item"><input type="checkbox"> 时效性把握差</label>
+          <label class="checkbox-item"><input type="checkbox"> 风险识别弱</label>
+        </div>
+        <div class="inline-group">
+          <div class="inline-field">
+            <label>实施周期</label>
+            <select>
+              <option>3个月</option>
+              <option selected>6个月</option>
+              <option>9个月</option>
+              <option>12个月</option>
+            </select>
+          </div>
+          <div class="inline-field">
+            <label>预算范围</label>
+            <select>
+              <option>5万以下</option>
+              <option>5-10万</option>
+              <option selected>10-30万</option>
+              <option>30万以上</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary">← 上一步</button>
+      <button class="btn-primary">确认并继续 →</button>
+    </div>
+  </div>
+</body>
+</html>

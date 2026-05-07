@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据可视化大屏 - 数据新闻作品</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0f172a;
+    min-height: 100vh;
+    color: #fff;
+  }
+  .header {
+    background: linear-gradient(90deg, rgba(30,41,59,0.9) 0%, rgba(30,41,59,0.7) 100%);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .header .logo { font-size: 1.1rem; font-weight: 700; }
+  .header .time { font-size: 0.85rem; opacity: 0.7; }
+  .main { padding: 1.5rem 2rem; }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, rgba(30,41,59,0.8) 0%, rgba(30,41,59,0.5) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-card .val {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-card .label { font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; }
+  .stat-card .trend { font-size: 0.75rem; color: #4ade80; margin-top: 0.3rem; }
+  .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+  .card {
+    background: linear-gradient(135deg, rgba(30,41,59,0.8) 0%, rgba(30,41,59,0.5) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-title { font-size: 0.95rem; font-weight: 600; }
+  .card-body { padding: 1.25rem; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 1rem; height: 200px; }
+  .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .bar {
+    width: 100%;
+    background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+    border-radius: 4px 4px 0 0;
+    min-height: 20px;
+  }
+  .bar-label { font-size: 0.75rem; opacity: 0.7; margin-top: 0.5rem; }
+  .pie-chart {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .pie-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#3b82f6 0deg 144deg, #60a5fa 144deg 216deg, #93c5fd 216deg 288deg, #1d4ed8 288deg 360deg);
+    position: relative;
+  }
+  .pie-circle::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    background: #0f172a;
+    border-radius: 50%;
+  }
+  .pie-legend { display: flex; flex-direction: column; gap: 0.5rem; }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .legend-dot.c1 { background: #3b82f6; }
+  .legend-dot.c2 { background: #60a5fa; }
+  .legend-dot.c3 { background: #93c5fd; }
+  .legend-dot.c4 { background: #1d4ed8; }
+  .timeline { display: flex; flex-direction: column; gap: 0.75rem; }
+  .timeline-item { display: flex; align-items: center; gap: 0.75rem; }
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #3b82f6;
+    position: relative;
+  }
+  .timeline-dot::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 5px;
+    width: 2px;
+    height: 30px;
+    background: rgba(59,130,246,0.3);
+  }
+  .timeline-item:last-child .timeline-dot::after { display: none; }
+  .timeline-content { flex: 1; }
+  .timeline-title { font-size: 0.85rem; color: #fff; }
+  .timeline-time { font-size: 0.75rem; opacity: 0.5; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">📊 临沂市文旅数据新闻大屏</div>
+    <div class="time">数据更新时间：2026-05-06 09:30</div>
+  </div>
+  <div class="main">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="val">1280万</div>
+        <div class="label">累计阅读量</div>
+        <div class="trend">↑ 23.5%</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">856万</div>
+        <div class="label">微博话题阅读</div>
+        <div class="trend">↑ 18.2%</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">45.6万</div>
+        <div class="label">互动量</div>
+        <div class="trend">↑ 31.8%</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">2.3亿</div>
+        <div class="label">品牌曝光总值</div>
+        <div class="trend">↑ 15.7%</div>
+      </div>
+    </div>
+    <div class="content-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📈 临沂市月度游客量趋势（单位：万人次）</div>
+        </div>
+        <div class="card-body">
+          <div class="bar-chart">
+            <div class="bar-item">
+              <div class="bar" style="height: 60%"></div>
+              <div class="bar-label">1月</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 45%"></div>
+              <div class="bar-label">2月</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 80%"></div>
+              <div class="bar-label">3月</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 95%"></div>
+              <div class="bar-label">4月</div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: 100%"></div>
+              <div class="bar-label">5月</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📊 游客来源分布</div>
+        </div>
+        <div class="card-body">
+          <div class="pie-chart">
+            <div class="pie-circle"></div>
+            <div class="pie-legend">
+              <div class="legend-item"><span class="legend-dot c1"></span>省内游客 40%</div>
+              <div class="legend-item"><span class="legend-dot c2"></span>省外游客 20%</div>
+              <div class="legend-item"><span class="legend-dot c3"></span>本地游客 25%</div>
+              <div class="legend-item"><span class="legend-dot c4"></span>境外游客 15%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top: 1.5rem;">
+      <div class="card-header">
+        <div class="card-title">⏱️ 传播时间线</div>
+      </div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-title">微博话题 #临沂文旅# 登上热搜榜第3位</div>
+              <div class="timeline-time">2026-05-05 14:30</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-title">微信文章阅读量突破100万+</div>
+              <div class="timeline-time">2026-05-05 11:20</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-title">抖音短视频点赞量超过50万</div>
+              <div class="timeline-time">2026-05-05 09:15</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-title">首发稿件被20+媒体转载</div>
+              <div class="timeline-time">2026-05-05 08:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "project_id": "a33097df",
+  "created_at": "2026-05-06T07:08:00.979609",
+  "updated_at": "2026-05-06T07:08:00.980795",
+  "current_track": null,
+  "metadata": {
+    "project_name": "电视播出监控系统",
+    "side": "广电侧",
+    "ai_mode": "私有化部署",
+    "model_choice": "Qwen3.5-VL-72B",
+    "current_track": "技术研发类",
+    "track": "技术研发类",
+    "pain_points": [
+      "系统封闭",
+      "智能化缺失",
+      "应急响应慢"
+    ]
+  },
+  "fields": {
+    "track": {
+      "value": "技术研发类",
+      "source": "user_selected"
+    },
+    "side": {
+      "value": "广电侧",
+      "source": "user_selected"
+    },
+    "ai_mode": {
+      "value": "私有化部署",
+      "source": "user_selected"
+    },
+    "model_choice": {
+      "value": "Qwen3.5-VL-72B",
+      "source": "recommended"
+    },
+    "pain_points": {
+      "value": [
+        "系统封闭",
+        "智能化缺失",
+        "应急响应慢"
+      ],
+      "source": "recommended"
+    }
+  },
+  "change_log": [
+    {
+      "field": "track",
+      "old": null,
+      "new": "技术研发类",
+      "cascade_from": null
+    },
+    {
+      "field": "pain_points",
+      "old": null,
+      "new": [
+        "系统封闭",
+        "智能化缺失",
+        "应急响应慢"
+      ],
+      "cascade_from": null
+    }
+  ]
+}

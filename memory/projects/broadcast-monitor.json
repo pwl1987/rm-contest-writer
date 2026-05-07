@@ -1,0 +1,19 @@
+{
+  "project_id": "broadcast-monitor",
+  "created_at": "2026-05-06T13:00:00Z",
+  "updated_at": "2026-05-06T14:30:00Z",
+  "project_name": "广电智能监播系统",
+  "track": "技术研发类",
+  "side": "广电侧",
+  "ai_mode": "私有化部署",
+  "model_choice": "Qwen3.5-VL-72B",
+  "core_functions": ["信号监测", "故障报警", "自动切换", "延时联动"],
+  "mockup_templates": ["dashboard", "trending", "preview", "signal-monitor"],
+  "fields": {
+    "track": {"value": "技术研发类", "source": "inferred"},
+    "side": {"value": "广电侧", "source": "inferred"},
+    "ai_mode": {"value": "私有化部署", "source": "inferred"},
+    "model_choice": {"value": "Qwen3.5-VL-72B", "source": "inferred"},
+    "pain_points": {"value": ["响应滞后", "覆盖不足", "联动缺失", "智能化缺失"], "source": "inferred"}
+  }
+}
