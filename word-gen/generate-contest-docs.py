@@ -230,33 +230,26 @@ def add_table_title_paragraph(doc, text):
 
 
 def add_image_paragraph(doc, image_path, caption_text=None):
-    """插图：插入图片，图与前后正文空一行"""
-    if not os.path.exists(image_path):
-        return None
-
+    """插图：插入图片，图与前后正文空一行。图片缺失时插入占位文本便于调试。"""
     para = doc.add_paragraph()
-    # 添加空行（上空一行）
     set_paragraph_spacing(para, LINE_BODY, before=LINE_BODY, after=SPACE_NONE)
 
-    # 读取图片并添加
     try:
         from docx.shared import Inches, Cm
         from docx.oxml.ns import qn
         from lxml import etree
-
-        # 获取图片尺寸（保持宽高比，最大宽度15cm）
         max_width = Cm(15)
-
         run = para.add_run()
-        run.add_picture(image_path, width=max_width)
+        if os.path.exists(image_path):
+            run.add_picture(image_path, width=max_width)
+        else:
+            run.add_run(f'[图片缺失: {os.path.basename(image_path)}]')
     except Exception as e:
         para.add_run(f'[图片: {os.path.basename(image_path)}]')
 
-    # 图片后空一行
     after_para = doc.add_paragraph()
     set_paragraph_spacing(after_para, LINE_BODY, before=SPACE_NONE, after=LINE_BODY)
 
-    # 如果有标题
     if caption_text:
         add_image_caption(doc, caption_text)
 
@@ -421,10 +414,8 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
     n = len(lines)
     i = 0
     table_rows = []
-    in_table = False
-    in_code_block = False
-    code_block_lines = []
-    first_para = True  # 标题后空一行标记
+    pending_table_title = None  # 暂存表格标题（来自前一行如"**表1：xxx**"）
+    table_header_line = -1  # 记录表格首行行号，用于提取前一行作为标题
 
     while i < n:
         line = lines[i]
@@ -502,6 +493,7 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
         # ===== 表格 =====
         if stripped.startswith('|'):
             in_table = True
+            table_header_line = i - 1  # 记录表格前一行作为标题
             if re.match(r'^\|[\s\-:|]+\|$', stripped):
                 i += 1
                 continue
@@ -511,12 +503,29 @@ def markdown_to_docx(md_path, docx_path, png_path=None):
             continue
         else:
             if in_table and table_rows:
-                # 标题与表格之间不空行（标题段前0.5行已提供视觉间隔），表格后空一行
-                add_table_title_paragraph(doc, '表')  # 简化：表格标题由用户自行补充
+                # 尝试从上一行提取表格标题（支持 ">注：..." / "**表N：xxx**" / "表N：xxx" 格式）
+                table_title = '表'
+                if table_header_line >= 0 and table_header_line < n:
+                    prev_line = lines[table_header_line].strip()
+                    # 格式1：> 注：xxx 或 > 表1：xxx
+                    m = re.match(r'^>注[：:]\s*(.+)$', prev_line)
+                    if m:
+                        table_title = to_chinese_quotes(m.group(1).strip())
+                    else:
+                        m2 = re.match(r'^>\s*(表[一二三四五六七八九十\d]+[：:]\s*.+)$', prev_line)
+                        if m2:
+                            table_title = to_chinese_quotes(m2.group(1).strip())
+                        else:
+                            # 格式2：**表1：xxx** 或 表1：xxx（直接标题行）
+                            m3 = re.match(r'^\*\*?表[一二三四五六七八九十\d]+[：:]\s*(.+?)\*\*?$', prev_line)
+                            if m3:
+                                table_title = to_chinese_quotes(m3.group(1).strip())
+                add_table_title_paragraph(doc, table_title)
                 add_table(doc, table_rows)
                 add_empty_paragraph(doc)  # 表格后空一行再跟正文
                 table_rows = []
                 in_table = False
+                table_header_line = -1
 
         # ===== 标题判断 =====
         style, text = parse_heading_style(stripped)
