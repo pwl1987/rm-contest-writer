@@ -15,7 +15,7 @@ import shutil
 import urllib.request
 import urllib.error
 
-ROOT = '/home/lytv/.claude/skills/rm-contest-writer'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VENV_PYTHON = '/tmp/docconvert-venv/bin/python3'
 VENV_PIP = '/tmp/docconvert-venv/bin/pip'
 PLAYWRIGHT_PYTHON = '/tmp/docconvert-venv/bin/python3'

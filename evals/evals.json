@@ -5,19 +5,90 @@
       "id": 0,
       "prompt": "撰写一份广电智能监播系统，检测电视直播信号，出现问题进行报警切换，联动延时系统。",
       "expected_output": "生成技术研发类申报材料，包含：信号监测/故障报警/自动切换/延时联动核心功能，signal-monitor截图，正确推断广播监控类型mockup",
-      "files": []
+      "assertions": [
+        {"text": "必须包含: '信号监测' 或 '信号监控'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '故障报警' 或 '异常告警'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '自动切换' 或 '自动切替'", "passed": false, "evidence": ""},
+        {"text": "不能包含: 'GLM-4' 与 'GPU服务器' 同时出现（模型名与部署方式矛盾）", "passed": false, "evidence": ""},
+        {"text": "赛道标注为: 技术研发类", "passed": false, "evidence": ""}
+      ]
     },
     {
       "id": 1,
       "prompt": "帮我写一个融媒技术创新大赛申报材料，赛道是技术研发类，项目归属是日报侧，作品名称叫'智能选题推荐系统'，AI部署方式是私有化部署，模型选择Qwen3.5-VL-72B",
       "expected_output": "生成完整 Markdown 申报材料，包含架构图截图引用、三赛道模板完整章节（作品概述/背景需求/方案设计/实施效果/落地推广/团队介绍/总结）",
-      "files": []
+      "assertions": [
+        {"text": "必须包含 7 个章节标题", "passed": false, "evidence": ""},
+        {"text": "必须包含 'Qwen3.5-VL-72B'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '私有化部署' 或 '私有化部署模式'", "passed": false, "evidence": ""},
+        {"text": "必须包含架构图截图引用: ![...](memory/templates/screenshots/...)", "passed": false, "evidence": ""}
+      ]
     },
     {
       "id": 2,
       "prompt": "我要参加首届融媒大赛，应用创新类赛道，作品名称叫'新媒体内容审核流程优化系统'，项目归属是广电侧，核心痛点是应急响应慢和功能割裂",
       "expected_output": "生成应用创新类申报材料，包含审核流程架构图，突出落地可行性和数据有效性",
-      "files": []
+      "assertions": [
+        {"text": "赛道标注为: 应用创新类", "passed": false, "evidence": ""},
+        {"text": "必须包含: '应急响应' 或 '响应慢'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '功能割裂' 或 '系统孤岛'", "passed": false, "evidence": ""},
+        {"text": "字数 ≤ 2500 字", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "帮我写一个数据新闻可视化大屏的参赛材料，用于新闻生产指挥大屏展示，包含实时数据更新和历史对比分析",
+      "expected_output": "生成内容创意类申报材料，包含数据可视化大屏截图，H5页面或视频预览区设计",
+      "assertions": [
+        {"text": "赛道标注为: 内容创意类", "passed": false, "evidence": ""},
+        {"text": "必须包含: '数据可视化' 或 '数据新闻'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '大屏' 或 '指挥大屏'", "passed": false, "evidence": ""},
+        {"text": "必须包含截图引用（data-visualization 或 content-display 相关）", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "写一个技术研发类申报材料，作品名称是'跨平台内容聚合分析系统'，AI部署用API调用方式，不需要本地GPU",
+      "expected_output": "生成技术研发类申报材料，正确使用API模式描述，不出现GPU服务器相关描述",
+      "assertions": [
+        {"text": "赛道标注为: 技术研发类", "passed": false, "evidence": ""},
+        {"text": "必须包含: 'API调用' 或 'API模式' 或 '云端API'", "passed": false, "evidence": ""},
+        {"text": "不能包含: 'GPU服务器' 或 'A100' 或 'RTX 4090'（与API模式矛盾）", "passed": false, "evidence": ""},
+        {"text": "必须包含 3.4 节对比表（含准确率/召回率/误报率/响应时延/并发量）", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "我要参加应用创新类赛道，作品名称'选题与发布流程优化系统'，核心痛点是双平台操作繁琐、数据更新不一致",
+      "expected_output": "生成应用创新类申报材料，突出流程优化、跨平台协作",
+      "assertions": [
+        {"text": "赛道标注为: 应用创新类", "passed": false, "evidence": ""},
+        {"text": "必须包含: '双平台' 或 '跨平台' 或 '两端'", "passed": false, "evidence": ""},
+        {"text": "必须包含: '数据同步' 或 '更新不一致'", "passed": false, "evidence": ""},
+        {"text": "字数 ≤ 2500 字", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "写一个参赛材料，作品名称'热点事件追踪与预警系统'，没有明确赛道，让我自己推断",
+      "expected_output": "AI 正确推断赛道（根据关键词'热点追踪/预警'推断为技术研发类或应用创新类），主动询问用户确认",
+      "assertions": [
+        {"text": "AI 输出了赛道推断（技术研发类或应用创新类）", "passed": false, "evidence": ""},
+        {"text": "AI 包含了置信度信息（如 [75%]）", "passed": false, "evidence": ""},
+        {"text": "AI 请求用户确认赛道选择", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "test-case-0-flawed.md 的内容，帮我完善这份申报材料",
+      "expected_output": "Gate 校验应该发现所有 4 类问题并阻止提交",
+      "assertions": [
+        {"text": "Gate 校验失败（B:综合评分 < 7）", "passed": false, "evidence": ""},
+        {"text": "必须报告: '模型名称错误（GLM-4 不是视觉模型）'", "passed": false, "evidence": ""},
+        {"text": "必须报告: 'core_functions 同义替换问题'", "passed": false, "evidence": ""},
+        {"text": "必须报告: '对比表缺失召回率行'", "passed": false, "evidence": ""},
+        {"text": "必须报告: '硬件矛盾（A100 vs RTX 4090）'", "passed": false, "evidence": ""}
+      ]
     }
   ]
 }

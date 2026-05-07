@@ -52,7 +52,7 @@ def start_http_server(dir_path, port):
 
 def capture_with_node(html_path, output_png):
     """主要方案：使用 Node.js + playwright"""
-    script = '/home/lytv/.claude/skills/rm-contest-writer/word-gen/capture-diagram.js'
+    script = os.path.join(os.path.dirname(__file__), 'capture-diagram.js')
     try:
         result = subprocess.run(
             ['node', script, html_path, output_png],

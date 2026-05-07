@@ -374,8 +374,8 @@ WORK: [来自采集的作品名称]
 ### 7.2 执行截图命令
 
 ```bash
-# 截图 HTML 页面（端口 8898 需提前启动）
-node /home/lytv/.claude/skills/rm-contest-writer/word-gen/capture-diagram.js <html路径> <输出png路径> --port 8898
+# 截图 HTML 页面
+python3 word-gen/capture-diagram.py <html路径> <输出png路径>
 ```
 
 ### 7.3 截图嵌入 Markdown
@@ -572,18 +572,18 @@ node /home/lytv/.claude/skills/rm-contest-writer/word-gen/capture-diagram.js <ht
 
 **第0步：前置依赖检查**
 ```bash
-node /home/lytv/.claude/skills/rm-contest-writer/word-gen/preflight-check.js
+python3 word-gen/preflight-check.py
 ```
 
 **第1步：Markdown → docx 转换**
 ```bash
-node /home/lytv/.claude/skills/rm-contest-writer/word-gen/generate-contest-docs.js <markdown文件> <输出docx路径>
+python3 word-gen/generate-contest-docs.py <markdown文件> <输出docx路径>
 ```
 
 **第2步：HTML 界面图截图插入**
 若有 HTML 架构图/界面图，截图后自动嵌入：
 ```bash
-node /home/lytv/.claude/skills/rm-contest-writer/word-gen/capture-diagram.js <html路径> <输出png路径> --port 8898
+python3 word-gen/capture-diagram.py <html路径> <输出png路径>
 ```
 
 Markdown 中的截图引用会自动嵌入 docx。
